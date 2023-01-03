@@ -54,8 +54,8 @@ export const ForecastTable = (props: ForecastTableProps) => {
                 </tbody>
             </table>
         </div>
-        <div className="flex items-center justify-center bg-slate-200 cursor-pointer p-2 animate-bounce" onClick={(e) => handleClick(e)}>
-            { showMore ? <FontAwesomeIcon icon={faChevronUp} size='xl' flip="horizontal" color="black"/> : <FontAwesomeIcon icon={faChevronDown} size='xl' flip="horizontal" color="black"/> }
+        <div className="flex items-center justify-center bg-slate-200 cursor-pointer p-2 " onClick={(e) => handleClick(e)}>
+            { showMore ? <div className="animate-bounce pt-2"><FontAwesomeIcon icon={faChevronUp} size='xl' flip="horizontal" color="black"/> </div> : <div className="animate-bounce pt-2"><FontAwesomeIcon icon={faChevronDown} size='xl' flip="horizontal" color="black"/></div> }
         </div>
     </>
   );

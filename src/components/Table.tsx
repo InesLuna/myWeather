@@ -10,7 +10,7 @@ export const Table = (props: TableProps) => {
     return (
         <div className="w-full">
             <div className='py-5'>
-                <p className="text-xl text-gray-900">Current <span className="text-yellow-500">W</span><span className="text-red-400">e</span><span className="text-teal-600">a</span>ther: <span className="capitalize font-bold ">{weatherData.weatherDescription}</span></p>
+                <p className="text-xl text-gray-900">Current <span className="text-yellow-500">W</span><span className="text-red-400">e</span><span className="text-teal-600">a</span>ther:{' '}<span className="capitalize font-bold ">{weatherData.weatherDescription}</span></p>
             </div>
             <table className="border-collapse border border-slate-400 table-auto w-full">
                 <thead>
