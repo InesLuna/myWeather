@@ -10,5 +10,5 @@ export const getWeatherData = async (latLon: string) => {
             console.log('data error');
             return null
         });
-    return dataRes;
+    return dataRes.data.list;
 };
