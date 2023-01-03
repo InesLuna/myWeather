@@ -1,62 +1,49 @@
-import { useState, useEffect } from 'react';
-import ApexCharts, { ApexOptions } from 'apexcharts';
+
+import { ApexOptions } from 'apexcharts';
 import ReactApexChart from "react-apexcharts";
 
 interface LinealGrafProps {
-    max: any | [{x: number, y: number}];
-    min: any | [{x: number, y: number}];
-    feelLike: any | [{x: number, y: number}];
+  temp: any | [{x: number, y: number}];
 }
 
 export const LinealGraf = ( props:LinealGrafProps ) => {
 
-    const { max, min, feelLike } = props;
-
-    useEffect(()=>{
-      console.log(max)
-    }, []);
+    const { temp } = props;
 
     const series = [
           {
-            name: "Maximum Temperature",
-            data: max
-          },
-          {
-            name: "Lowest Temperature",
-            data: min
-          },
-          {
-            name: "Feels Like",
-            data: feelLike
+            name: "Temperature",
+            data: temp
           }
         ]
     const options: ApexOptions = {
           chart: {
-            height: 350,
+            height: 150,
             toolbar: {
               show: false
             }
           },
+          colors: ['#0d9488'],
           dataLabels: {
             enabled: true,
+            style: {
+              fontSize: '10px'
+            }
           },
-          stroke: {
-           curve: 'smooth'
-          },
+      
           title: {
-            text: 'Temperature',
-          //  align: 'left'
+            text: 'Temperature forecast',
+            align: 'center',
+            style: {
+              fontSize: '20px',
+              fontWeight: '700',
+              color: '0d9488'
+            }
           },
           grid: {
             borderColor: '#e7e7e7',
-            column: {
-              colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-              opacity: 0.5
-            },
           },
-          markers: {
-            size: 1
-          },
+          
           xaxis: {
             type: 'datetime'
           },
@@ -64,22 +51,13 @@ export const LinealGraf = ( props:LinealGrafProps ) => {
             title: {
               text: 'Farenheit'
             },
-            min: 270,
-            max: 300
+            min: 0,
+            max: 400
           },
-          legend: {
-            position: 'top',
-            horizontalAlign: 'right',
-            floating: true,
-            offsetY: -25,
-            offsetX: -5
-          }
         }
   return (
-    <div>
-        <div>LinealGraf</div>
-        <ReactApexChart options={options} series={series} type="bar" height={350} />
-    </div>
-    
+    <div className='pt-20'>
+        <ReactApexChart options={options} series={series} type="line" height={350} />
+    </div> 
   );
 };

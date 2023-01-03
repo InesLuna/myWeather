@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { ApexOptions } from 'apexcharts';
 import ReactApexChart from "react-apexcharts";
 

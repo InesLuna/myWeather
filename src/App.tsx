@@ -1,28 +1,40 @@
-import { NavBar, HeaderSection, Table, LinealGraf, BarTemperatureGraf  } from "./components";
-import { getWeatherData, getLatLon } from "./bff";
+import { NavBar, HeaderSection, Table, BarTemperatureGraf, LinealGraf, ForecastTable, PieAirPollution  } from "./components";
+import { getWeatherData, getLatLon, fakeData, getAirPollution } from "./bff";
 import { useEffect, useState } from "react";
 
 function App() {
 
-  const [ weatherData, setWeatherData ] = useState([]);
-  const [ maxTempArray, setMaxTempArray ] = useState([]);
-  const [ minTempArray, setMinTempArray ] = useState([]);
-  const [ feelsLikeTempArray, setFeelsLikeTempArray ] = useState([]);
-    
-  const dataLocationRequest = async () => {
-	const data = await getLatLon('Barcelona');
-	if(data) {
-		dataWeatherRequest(data);
-	}
-  } 
+    const [ location, setLocation ] = useState('Barcelona')
+    const [ weatherData, setWeatherData ] = useState(fakeData);
+    const [ airPollutionData, setAirPollutionData ] = useState([]);
+    const [ maxTempArray, setMaxTempArray ] = useState([]);
+    const [ minTempArray, setMinTempArray ] = useState([]);
+    const [ feelsLikeTempArray, setFeelsLikeTempArray ] = useState([]);
+    const [ temperature, setTemperature ] = useState([]);
+    const [ actualWeather, setActualWeather ] = useState([]);
+        
+    const dataLocationRequest = async () => {
+        const data = await getLatLon(location);
+        if(data) {
+            dataWeatherAndAirRequest(data);
+        }
+    } 
 
-  const dataWeatherRequest = async (latLon: string) => {
+  const dataWeatherAndAirRequest = async (latLon: string) => {
       const data = await getWeatherData(latLon);
+      const airData = await getAirPollution(latLon);
       if(data) {
           setWeatherData(data);
       }
+      if(airData) {
+        setAirPollutionData(airData);
+      }
   } 
   
+  const handleClick = (e:any) => {
+    e.preventDefault();
+    dataLocationRequest()
+  }
   useEffect(()=> {
     dataLocationRequest();
   }, []);
@@ -31,26 +43,53 @@ function App() {
     const max: any = [];
     const min: any = [];
     const feels: any = [];
+    const temp:  any = [];
+    const actual: any = {
+      temp: weatherData[0].main.temp,
+      humidity: weatherData[0].main.humidity,
+      weather: weatherData[0].weather[0].main,
+      weatherDescription: weatherData[0].weather[0].description,
+      windSpeed: weatherData[0].wind.speed,
+      windDegree: weatherData[0].wind.deg
+    }
+    ;
 
     weatherData.map((w: any, i:number) => {
-      const dt = w.dt;
-
+      const dt = Date.parse(w.dt_txt);
+      
       max.push({x: dt, y: w.main.temp_max});
       min.push({x: dt, y: w.main.temp_min});
       feels.push({x: dt, y: w.main.feels_like});
+      temp.push({x: dt, y: w.main.temp});
     })
+
     setMaxTempArray(max);
     setMinTempArray(min);
     setFeelsLikeTempArray(feels);
+    setTemperature(temp);
+    setActualWeather(actual);
   }, [weatherData]);
 
   return (
-    <div className="bg-red">
-      <NavBar />
-      <HeaderSection location= 'Barcelona' />
-      <Table />
+    <div className="">
+      <NavBar setLocation={setLocation} handleClick={handleClick} />
       {
-        feelsLikeTempArray.length > 0 ? ( <div className='w-1/2 p-5'><BarTemperatureGraf max={maxTempArray} min={minTempArray} feelLike={feelsLikeTempArray}/></div>) : null
+        feelsLikeTempArray.length > 0 ? (
+          <div className="p-20">
+            <HeaderSection location= {location} date={weatherData[0].dt_txt} />
+            <Table  weatherData={actualWeather} />
+            <LinealGraf temp={temperature} />
+            <ForecastTable weatherData={weatherData}/>
+            <div className="flex pt-20">
+              <div className='w-1/2'>
+                <BarTemperatureGraf max={maxTempArray} min={minTempArray} feelLike={feelsLikeTempArray}/>
+              </div>
+              <div className='w-1/2'>
+                <PieAirPollution airPollutionData={airPollutionData} />
+              </div>
+            </div>
+          </div> 
+          ) : null
       }
 	  
     </div>
