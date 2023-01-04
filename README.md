@@ -4,6 +4,9 @@
 MyWeather es una "single page aplication" que genera un dashboard para mostrar diversos aspectos de la previsión del tiempo a lo largo de los siguientes 5 días en bloques de 3 horas de la ciudad elegída.
 Utiliza los datos obtenidos a través de la api pública de https://openweathermap.org/ 
 
+Necesitarás crear un archivo en la carpeta bff llamado apiK.ts con el siguiente contenido:
+export const apiKey = <your api key>
+y generar una apiKey, para loque debes registrarte en https://openweathermap.org/, con el free plan tienes suficiente.
 
 
 ## Create React App info
