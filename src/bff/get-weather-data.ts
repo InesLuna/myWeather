@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { apiKey } from './apiKey';
 
 export const getWeatherData = async (latLon: string) => {
 
-    const url = `http://api.openweathermap.org/data/2.5/forecast?${latLon}&appid=5cc70887c352d9176a2326b7cf0a2554`;
+    const url = `http://api.openweathermap.org/data/2.5/forecast?${latLon}&appid=${apiKey}`;
     let dataRes: any;
     await axios.get(url)
         .then(data => dataRes = data)

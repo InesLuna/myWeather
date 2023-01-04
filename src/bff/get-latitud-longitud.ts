@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { apiKey } from './apiKey';
 
 export const getLatLon = async (country: string) => {
 
-    const url = `http://api.openweathermap.org/geo/1.0/direct?q=${country}&limit=5&appid=5cc70887c352d9176a2326b7cf0a2554`;
+    const url = `http://api.openweathermap.org/geo/1.0/direct?q=${country}&limit=5&appid=${apiKey}`;
     let lat: any;
     let lon: any;
     await axios.get(url)
