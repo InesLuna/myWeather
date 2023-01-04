@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { apiKey } from './apiKey';
+import { apiKey } from './apiK';
 
 export const getWeatherData = async (latLon: string) => {
 
