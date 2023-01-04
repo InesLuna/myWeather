@@ -18,15 +18,15 @@ export const ForecastTable = (props: ForecastTableProps) => {
 
   return (
     <>
-        <div className={showMore ? 'h-max' : "h-64 overflow-hidden"}>
+        <div className={showMore ? 'h-max mt-10 md:mt-20  md:overflow-x-auto snap-x md:snap-none overflow-x-scroll' : "h-64 overflow-y-hidden mt-10 md:mt-20 overflow-x-scroll md:overflow-x-auto snap-x md:snap-none"}>
             <table className="border-collapse border border-slate-200 table-auto w-full">
                 <thead>
                     <tr>
-                        <th className="border border-slate-200 text-center p-3 bg-teal-900 text-white">Date</th>
-                        <th className="border border-slate-200 text-center p-3 bg-teal-900 text-white">Temperature</th>
-                        <th className="border border-slate-200 text-center p-3 bg-teal-900 text-white">Humidity</th>
-                        <th className="border border-slate-200 text-center p-3 bg-teal-900 text-white">Weather</th>
-                        <th className="border border-slate-200 text-center p-3 bg-teal-900 text-white">Wind</th>
+                        <th className="border border-slate-200 text-center p-3 bg-teal-900 text-white text-xs md:text-base">Date</th>
+                        <th className="border border-slate-200 text-center p-3 bg-teal-900 text-white text-xs md:text-base">Temperature</th>
+                        <th className="border border-slate-200 text-center p-3 bg-teal-900 text-white text-xs md:text-base">Humidity</th>
+                        <th className="border border-slate-200 text-center p-3 bg-teal-900 text-white text-xs md:text-base">Weather</th>
+                        <th className="border border-slate-200 text-center p-3 bg-teal-900 text-white text-xs md:text-base">Wind</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,11 +38,11 @@ export const ForecastTable = (props: ForecastTableProps) => {
                             }
                             return (
                                 <tr className={bg} key={`0000${i}`}>
-                                    <td className="border border-slate-200 text-center p-1">{w.dt_txt}</td>
-                                    <td className="border border-slate-200 text-center p-1">{w.main.temp}</td>
-                                    <td className="border border-slate-200 text-center p-1">{w.main.humidity}</td>
-                                    <td className="border border-slate-200 text-center p-1">{w.weather[0].main}</td>
-                                    <td className="border border-slate-200 text-center p-1">
+                                    <td className="border border-slate-200 text-center p-1 text-xs md:text-base">{w.dt_txt}</td>
+                                    <td className="border border-slate-200 text-center p-1 text-xs md:text-base">{w.main.temp}</td>
+                                    <td className="border border-slate-200 text-center p-1 text-xs md:text-base">{w.main.humidity}</td>
+                                    <td className="border border-slate-200 text-center p-1 text-xs md:text-base">{w.weather[0].main}</td>
+                                    <td className="border border-slate-200 text-center p-1 text-xs md:text-base">
                                         Speed: {w.wind.speed}<br/>
                                         Degrees: {w.wind.deg}
                                     </td>

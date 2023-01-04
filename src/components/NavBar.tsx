@@ -11,10 +11,10 @@ export const NavBar = (props: NavBarProps) => {
   
 
   return (
-    <div className='flex justify-between p-5 border-b border-gray-200'>
-      <h1 className="text-lg font-black text-gray-900">My<span className="text-yellow-500">W</span><span className="text-red-400">e</span><span className="text-teal-600">a</span>ther</h1>
-      <div className="flex">
-        <div className="w-10 min-h-full flex items-center justify-center bg-slate-300 cursor-pointer" onClick={(e) => handleClick(e)}>
+    <div className='flex justify-between items-center flex-wrap p-5 border-b border-gray-200'>
+      <h1 className="text-lg font-black text-gray-900  mb-4 md:mb-0">My<span className="text-yellow-500">W</span><span className="text-red-400">e</span><span className="text-teal-600">a</span>ther</h1>
+      <div className="flex flex-nowrap">
+        <div className="w-10 min-h-full flex items-center justify-center bg-slate-300 cursor-pointer border border-slate-300 focus:border-teal-600 focus:ring-teal-600 focus:ring-1" onClick={(e) => handleClick(e)}>
           <FontAwesomeIcon icon={faMagnifyingGlass} size='sm' flip="horizontal" color="white"/>
         </div>
         <input 

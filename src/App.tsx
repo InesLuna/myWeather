@@ -75,23 +75,22 @@ function App() {
       <NavBar setLocation={setLocation} handleClick={handleClick} />
       {
         feelsLikeTempArray.length > 0 ? (
-          <div className="p-20">
+          <div className="p-6 md:p-20">
             <HeaderSection location= {location} date={weatherData[0].dt_txt} />
             <Table  weatherData={actualWeather} />
             <LinealGraf temp={temperature} />
             <ForecastTable weatherData={weatherData}/>
-            <div className="flex pt-20">
-              <div className='w-1/2'>
+            <div className="flex flex-wrap md:flex-nowrap pt-10 md:p-20">
+              <div className='md:w-1/2'>
                 <BarTemperatureGraf max={maxTempArray} min={minTempArray} feelLike={feelsLikeTempArray}/>
               </div>
-              <div className='w-1/2'>
+              <div className='md:w-1/2'>
                 <PieAirPollution airPollutionData={airPollutionData} />
               </div>
             </div>
           </div> 
           ) : null
       }
-	  
     </div>
   );
 }

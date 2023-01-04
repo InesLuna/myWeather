@@ -2,7 +2,7 @@
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from 'apexcharts';
 import { useEffect, useState } from "react";
-import { mainModule } from "process";
+import { useWindowWidth } from '@react-hook/window-size';
 
  interface PieAirPollutionProps {
     airPollutionData: any;
@@ -10,7 +10,10 @@ import { mainModule } from "process";
 export const PieAirPollution = (props: PieAirPollutionProps) => {
 
     const { airPollutionData } = props;
+    const width = useWindowWidth();
+
     const [ airComponents, setAirComponents ] = useState([]);
+    const [ legendPosition, setLegendPosition ] = useState('right');
     const [ airQ, setAirQ ] = useState('');
 
     useEffect(()=>{
@@ -39,15 +42,22 @@ export const PieAirPollution = (props: PieAirPollutionProps) => {
         } 
     },[airPollutionData]);
 
+    useEffect(()=>{
+        width < 960 ? setLegendPosition('bottom') : setLegendPosition('right');
+    }, [width]);
+
     const series = airComponents;
     const options: ApexOptions = {
-        labels: ['Carbon monoxide', 'Nitrogen monoxide', 'Nitrogen dioxide', 'Ozone', 'Sulphur dioxide', 'Fine particles matter', 'Coarse particulate matter', 'Ammonia']
+        labels: ['Carbon monoxide', 'Nitrogen monoxide', 'Nitrogen dioxide', 'Ozone', 'Sulphur dioxide', 'Fine particles matter', 'Coarse particulate matter', 'Ammonia'],
+        legend: {
+            position: legendPosition
+        }
     };
 
 
   return (
-    <div className="">
-        <p className="font-bold text-lg  text-center pb-10">Air quality:{' '}<span className="text-red-500">{airQ}</span></p>
+    <div className="pt-6 md:pt-0">
+        <p className="font-bold text-lg  text-center pb-6 md:pb-10">Air quality:{' '}<span className="text-red-500">{airQ}</span></p>
         <ReactApexChart options={options} series={series} type="pie" height={250} />
     </div>
   )
